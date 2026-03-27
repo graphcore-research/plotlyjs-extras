@@ -81,15 +81,9 @@ def build_demo_figure() -> go.Figure:
     fig = go.Figure()
     for index, row in enumerate(series):
         red, green, blue = (
-            base_colors[index]
-            .replace("rgb(", "")
-            .replace(")", "")
-            .split(",")
+            base_colors[index].replace("rgb(", "").replace(")", "").split(",")
         )
-        color = (
-            f"rgba({red.strip()}, {green.strip()}, {blue.strip()}, "
-            f"{row['alpha']})"
-        )
+        color = f"rgba({red.strip()}, {green.strip()}, {blue.strip()}, {row['alpha']})"
         fig.add_trace(
             go.Scatter(
                 x=x,
@@ -123,7 +117,8 @@ def create_page_html() -> str:
         dim_opacity=0.12,
         active_darken=0.25,
     )
-    return """<!doctype html>
+    return (
+        """<!doctype html>
 <html>
   <head>
     <meta charset=\"utf-8\" />
@@ -141,10 +136,13 @@ def create_page_html() -> str:
     </style>
   </head>
   <body>
-    <div id=\"screenshot-root\">\n""" + figure_html + """\n    </div>
+    <div id=\"screenshot-root\">\n"""
+        + figure_html
+        + """\n    </div>
   </body>
 </html>
 """
+    )
 
 
 def generate_screenshots(output_dir: Path) -> None:
@@ -186,9 +184,7 @@ def generate_screenshots(output_dir: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description=(
-            "Generate before/after legend click screenshots for README."
-        ),
+        description=("Generate before/after legend click screenshots for README."),
     )
     parser.add_argument(
         "--output-dir",

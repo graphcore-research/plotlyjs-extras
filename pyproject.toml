@@ -15,4 +15,4 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "jupyter"]
+dev = ["pytest", "jupyter", "nbclient", "playwright"]
